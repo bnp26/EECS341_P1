@@ -25,7 +25,7 @@ public class MySQLConnector {
             +   "SELECT * FROM `Movies` ORDER BY `length` DESC"
             + ") `M` GROUP BY `M`.`studioName`";
     
-    public static final String query4 = "SELECT `ms`.`starName`, `ms`.`address`, `s2`.`address`, `s2`.`studioName` " +
+    public static final String query4 = "SELECT DISTINCT `ms`.`starName`, `ms`.`address`, `s2`.`address`, `s2`.`studioName` " +
 "FROM `MovieStar` `ms`, `Movies` `m`, `Stars` `s1`, `Stud` `s2`\n" +
 "WHERE `ms`.`starName` = `s1`.`starName` " +
 "AND `s1`.`movieTitle` = `m`.`movieTitle` " +
