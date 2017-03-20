@@ -21,9 +21,11 @@ public class MySQLConnector {
     private static final String url = "jdbc:mysql://localhost:3306/MSS";
     // First asked for movies in descending order on length
     // Then grouped by Studio Name.
-    public static final String query2 = "SELECT * FROM ("
-            +   "SELECT * FROM `Movies` ORDER BY `length` DESC"
-            + ") `M` GROUP BY `M`.`studioName`";
+    public static final String query2 = "SELECT `movieTitle`, `movieYear`, `studioName`"
+            + " FROM `Movies` where `length` in"
+            + "(SELECT `len` FROM "
+            + "(SELECT `studioName`, MAX(`length`) as `len` from `Movies` GROUP BY `studioName`)"
+            + "`len`)";
     
     public static final String query4 = "SELECT DISTINCT `ms`.`starName`, `ms`.`address`, `s2`.`address`, `s2`.`studioName` " +
 "FROM `MovieStar` `ms`, `Movies` `m`, `Stars` `s1`, `Stud` `s2`\n" +
@@ -54,7 +56,7 @@ public class MySQLConnector {
         connection = null;
            
         String user = "root";
-        String password = "COyo_130";
+        String password = "123456";
             
         Properties info = new Properties();
         info.put("user", user);
