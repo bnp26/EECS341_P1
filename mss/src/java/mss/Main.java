@@ -41,9 +41,6 @@ public class Main {
                 System.out.format("|%-25s|%-25s|%-10s|\n", studioName, movieTitle,movieYear);
             }
             
-            //Query#2 With Length
-            query2WithLength(connector);
-            
             //Query#3
             System.out.println("Query #3 with MGM");
             query3(connector, "MGM");
@@ -62,28 +59,13 @@ public class Main {
             System.out.println(ex.toString());
         }
     }
-    //This method is just for showing correctness.
-    public static void query2WithLength(MySQLConnector connector) throws SQLException{
-        //Query #2 With Length
-            System.out.println("\n\nQUERY #2 With Length");
-            ResultSet result = connector.callQuery(MySQLConnector.query2);
-            System.out.format("|%-25s|%-25s|%-10s|%-10s|\n", "Studio Name", "Movie Title", "Movie Year", "length");
-            System.out.println("----------------------------------------------------------------------------");
-            while(result.next()) {
-                String studioName = result.getString("studioName");
-                String movieTitle = result.getString("movieTitle");
-                String movieYear = String.valueOf(result.getInt("movieYear"));
-                String length = String.valueOf(result.getInt("length"));
-                System.out.format("|%-25s|%-25s|%-10s|%-10s|\n", studioName, movieTitle,movieYear,length);
-            }
-    }
     
     public static void query3(MySQLConnector connector, String studioName) throws SQLException {
         Studio studio = connector.findStudio(studioName);
         MovieExec richestProducer = connector.findTheRichestProducer(studio);
         System.out.format("|%-20s|%-17s|\n", "Producer Name", "Studio Name");
         System.out.println("----------------------------------------");
-        System.out.format("|%-20s|%-17s|\n", richestProducer.getName(), studio.getStudioioName());
+        System.out.format("|%-20s|%-17s|\n", richestProducer.getName(), studio.getStudioName());
     }
     
     public static void query4(MySQLConnector connector) throws SQLException {

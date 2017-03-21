@@ -27,11 +27,11 @@ public class Studio {
         this.president = pres;
     }
 
-    public String getStudioioName() {
+    public String getStudioName() {
         return studioName;
     }
 
-    public void setStudioioName(String studioName) {
+    public void setStudioName(String studioName) {
         this.studioName = studioName;
     }
 

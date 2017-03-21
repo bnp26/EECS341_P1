@@ -161,8 +161,8 @@ public class MySQLConnector {
             producer.setNetworth(producerResults.getFloat("networth"));
             
             Studio studio = new Studio();
-            studio.setStudioioName(studioResults.getString("studioName"));
-            studio.setStudioioName(studioResults.getString("address"));
+            studio.setStudioName(studioResults.getString("studioName"));
+            studio.setStudioName(studioResults.getString("address"));
             studio.setPresident(president);
             
             current.setProducer(producer);
@@ -192,7 +192,6 @@ public class MySQLConnector {
         }
         
         String presidentSql = "SELECT * FROM `MovieExec` WHERE `cert#`='" + studioResults.getInt("presC#") + "'";
-        System.out.println(presidentSql);
         
         ResultSet presidentResults = presidentStmt.executeQuery(presidentSql);
         presidentResults.next();
@@ -202,7 +201,7 @@ public class MySQLConnector {
         }
         
         Studio studio = new Studio();
-        studio.setStudioioName(studioResults.getString("studioName"));
+        studio.setStudioName(studioResults.getString("studioName"));
         studio.setAddress(studioResults.getString("address"));
         
         MovieExec president = new MovieExec();
@@ -221,17 +220,13 @@ public class MySQLConnector {
     
     public MovieExec findTheRichestProducer(Studio studio) throws SQLException
     {
-        //instead of returning the correct query, I'm returning the correct result
+        //instead of returning the correct query, I'm returning the correct resulint
         //so I can populate the class with all the correct data.
-        String sql = "SELECT  `me`.*"
-                +   "FROM  ("
-                +       "SELECT `me`.*, `s`.`studioName` FROM `MovieExec`  `me` ,  `Stud`  `s` ,  `Movies`  `m`"
-                +       "WHERE  `s`.`studioName` =  '"+studio.getStudioioName()+"' "
-                +       "AND  `m`.`studioName` =  `s`.`studioName` " 
-                +       "AND  `me`.`cert#` =  `m`.`producerC#`"
-                +       "ORDER BY `me`.`networth` DESC ) `me`"
-                +   "GROUP BY `me`.`studioName`";
-        System.out.println(sql);
+        String sql = "SELECT `me`.*"
+            + " FROM `MovieExec` `me`, `Movies` `m`"
+            + " where `m`.`studioName` = '" + studio.getStudioName()+"'"
+            + " AND `me`.`cert#` = `m`.`producerC#`;";
+        
         Statement stmt = connection.createStatement();
         ResultSet result = stmt.executeQuery(sql);
         
@@ -243,10 +238,8 @@ public class MySQLConnector {
         MovieExec richestProducer = new MovieExec();
         result.next();
         String producerName = result.getString("name");
-        System.out.println("producerName:\t" + producerName);
         richestProducer.setName(producerName);
         int producerCert = result.getInt("cert#");
-        System.out.println("producerCert:\t" + producerCert);
         richestProducer.setCert(producerCert);
         richestProducer.setAddress(result.getString("address"));
         richestProducer.setNetworth(result.getInt("networth"));
