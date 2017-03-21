@@ -56,7 +56,7 @@ public class MySQLConnector {
         connection = null;
            
         String user = "root";
-        String password = "123456";
+        String password = "COyo_130";
             
         Properties info = new Properties();
         info.put("user", user);
@@ -248,5 +248,9 @@ public class MySQLConnector {
         
         return richestProducer;
         
+    }
+    
+    public void closeConnection() throws SQLException {
+        connection.close();
     }
 }
