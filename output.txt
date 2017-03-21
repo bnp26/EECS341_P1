@@ -1,0 +1,47 @@
+QUERY #1
+|Movie Title              |Movie Year|Movie Star   |
+-----------------------------------------------------------
+|Julie & Julia            |2009      |Meryl Streep |
+|Ma Ma Mia!               |2008      |Meryl Streep |
+
+
+QUERY #2
+|Studio Name              |Movie Title              |Movie Year|
+----------------------------------------------------------------
+|20th Century Fox         |Avatar                   |2009      |
+|Universal Pictures       |Forgetting Sarah Marshall|2008      |
+|Miramax                  |Good Will Hunting        |1997      |
+|Warner Bros.             |Inception                |2010      |
+|Warner Bros.             |Interstellar             |2014      |
+|Columbia Pictures        |Julie & Julia            |2009      |
+|Universal Pictures       |Ma Ma Mia!               |2008      |
+|Gaumont                  |Only God Forgives        |2013      |
+|MGM                      |Spectre                  |2015      |
+|Paramount Pictures       |The Saint                |1997      |
+|Paramount Pictures       |The Thing Called Love    |1993      |
+|Paramount Pictures       |World War Z              |2013      |
+Query #3 with MGM
+SELECT * FROM `MovieExec` WHERE `cert#`='32669718'
+SELECT `me`.* FROM `MovieExec` `me`, `Movies` `m` where `m`.`studioName` = 'MGM' AND `me`.`cert#` = `m`.`producerC#`;
+producerName:	Barbara Broccoli
+producerCert:	32661147
+|Producer Name       |Studio Name      |
+----------------------------------------
+|Barbara Broccoli    |MGM              |
+Query #3 with 20th Century Fox
+SELECT * FROM `MovieExec` WHERE `cert#`='32839412'
+SELECT `me`.* FROM `MovieExec` `me`, `Movies` `m` where `m`.`studioName` = '20th Century Fox' AND `me`.`cert#` = `m`.`producerC#`;
+producerName:	Carole Eastman
+producerCert:	32699718
+|Producer Name       |Studio Name      |
+----------------------------------------
+|Carole Eastman      |20th Century Fox |
+Query #4
+|Movie Star          |Address|Studio Name    |
+------------------------------------------------------------------
+|Jack Nicholson      |90064  |20th Century Fox|
+|Elisabeth Shue      |90038  |Paramount Pictures|
+Query #5
+|Movie Star          |Studio Name    |
+--------------------------------------
+|Daniel Craig        |MGM            |
